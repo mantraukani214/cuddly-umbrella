@@ -1,18 +1,7 @@
-services:
-  windows:
-    image: dockurr/windows
-    container_name: windows10
-    environment:
-      VERSION: "10"
-      RAM_SIZE: "32G"
-      CPU_CORES: "16"
-      DISK_SIZE: "300G"
-    devices:
-      - /dev/kvm
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - "8006:8006"
-      - "3389:3389/tcp"
-      - "3389:3389/udp"
-    restart: unless-stopped
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    xfce4 xfce4-goodies \
+    x11vnc xvfb novnc websockify
+
+CMD ["bash", "-c", "echo 'Render container running' && sleep infinity"]
