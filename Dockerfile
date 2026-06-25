@@ -1,7 +1,9 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install -y \
-    xfce4 xfce4-goodies \
-    x11vnc xvfb novnc websockify
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Kolkata
 
-CMD ["bash", "-c", "echo 'Render container running' && sleep infinity"]
+RUN apt-get update && apt-get install -y tzdata
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get install -y xfce4 xfce4-goodies xvfb x11vnc novnc websockify
